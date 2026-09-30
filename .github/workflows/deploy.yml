@@ -58,6 +58,6 @@ jobs:
               sudo chown -R $USER:$USER .
             fi
             
-            # Docker Hub se pre-built images pull karo aur containers restart karo
-            docker compose pull
-            docker compose up -d
+            # Docker Hub se pre-built images pull karo aur containers start karo (Hyphen ke sath)
+            docker-compose pull
+            docker-compose up -d
