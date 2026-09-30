@@ -17,19 +17,19 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Build and Push Frontend Image
+      - name: Build and Push Frontfi Image
         uses: docker/build-push-action@v4
         with:
-          context: ./frontend
+          context: ./frontfi
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/task-frontend:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/task-frontfi:latest
 
-      - name: Build and Push Backend Image
+      - name: Build and Push Backfi Image
         uses: docker/build-push-action@v4
         with:
-          context: ./backend
+          context: ./backfi
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/task-backend:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/task-backfi:latest
 
   deploy:
     needs: build-and-push
@@ -56,7 +56,7 @@ jobs:
               git clone https://github.com/sufiyan-mujawar2006/task_manager.git
               cd task_manager
               sudo chown -R $USER:$USER .
-            end
+            fi
             
             # Docker Hub se pre-built images pull karo aur containers restart karo
             sudo -E docker-compose pull
