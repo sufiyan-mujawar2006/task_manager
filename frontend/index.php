@@ -8,7 +8,7 @@ $result = $conn->query("SELECT * FROM tasks ORDER BY id DESC");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dockerized Task Manager</title>
+    <title>Dockerized task Manager</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
