@@ -2,15 +2,15 @@ version: '3.8'
 
 services:
   web_app:
+    image: ${DOCKER_HUB_USERNAME}/task-frontend:latest  # Docker Hub tag
     build: ./frontend
     ports:
       - "8080:80"
-    volumes:
-      - ./frontend:/var/www/html
     depends_on:
       - mysql_db
 
   mysql_db:
+    image: ${DOCKER_HUB_USERNAME}/task-backend:latest   # Docker Hub tag
     build: ./backend
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
