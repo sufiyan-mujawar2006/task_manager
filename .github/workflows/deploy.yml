@@ -37,23 +37,27 @@ jobs:
     steps:
       - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@master
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Git safe directory add karein taaki ownership error na aaye
+            # Git safe directory aur ownership fix
             git config --global --add safe.directory '*'
 
-            # Agar folder pehle se nahi hai toh clone karo, warna pull karo
+            # Agar folder pehle se hai toh ownership fix karke pull karo, warna clone karo
             if [ -d "task_manager" ]; then
+              sudo chown -R $USER:$USER task_manager
               cd task_manager
               git pull origin main
             else
               git clone https://github.com/sufiyan-mujawar2006/task_manager.git
               cd task_manager
+              sudo chown -R $USER:$USER .
             fi
             
-            # Docker Hub se pre-built images pull karo aur containers start karo
-            sudo /usr/local/bin/docker-compose pull
-            sudo /usr/local/bin/docker-compose up -d
+            # Docker Hub se pre-built images pull karo aur containers restart karo
+            docker compose pull
+            docker compose up -d
