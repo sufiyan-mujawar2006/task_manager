@@ -56,8 +56,8 @@ jobs:
               git clone https://github.com/sufiyan-mujawar2006/task_manager.git
               cd task_manager
               sudo chown -R $USER:$USER .
-            fi
+            end
             
-            # Docker Hub se pre-built images pull karo aur containers start karo (Hyphen ke sath)
-            docker-compose pull
-            docker-compose up -d
+            # Docker Hub se pre-built images pull karo aur containers restart karo
+            sudo -E docker-compose pull
+            sudo -E docker-compose up -d
