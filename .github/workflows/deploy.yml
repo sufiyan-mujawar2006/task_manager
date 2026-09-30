@@ -42,6 +42,9 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            # Git safe directory add karein taaki ownership error na aaye
+            git config --global --add safe.directory '*'
+
             # Agar folder pehle se nahi hai toh clone karo, warna pull karo
             if [ -d "task_manager" ]; then
               cd task_manager
@@ -51,6 +54,6 @@ jobs:
               cd task_manager
             fi
             
-            # Docker Hub se latest images pull karo aur containers restart karo
-            docker compose pull
-            docker compose up --build -d
+            # Docker Hub se pre-built images pull karo aur containers start karo
+            sudo /usr/local/bin/docker-compose pull
+            sudo /usr/local/bin/docker-compose up -d
